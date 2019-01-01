@@ -1,11 +1,12 @@
 package com.xm.service;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
+import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
 import com.xm.model.EmailObj;
@@ -14,22 +15,38 @@ import com.xm.model.EmailObj;
 public class EmailService {
 
 	@Autowired
-	private JavaMailSender sender;
+	public JavaMailSender emailSender;
 
-	public String sendMAil(EmailObj obj) throws MessagingException {
+	public String sendEmail(EmailObj emailObj) {
 
 		try {
-			MimeMessage message = sender.createMimeMessage();
-			MimeMessageHelper helper = new MimeMessageHelper(message);
-			helper.setTo(obj.getSenderName());
-			helper.setText(obj.getMessage());
-			helper.setSubject(obj.getSubject());
-			sender.send(message);
+			SimpleMailMessage message = new SimpleMailMessage();
+			message.setTo(emailObj.getEmail());
+			message.setSubject(emailObj.getSubject());
+			message.setText(emailObj.getMessage());
+			emailSender.send(message);
 			return "success";
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "Failure";
+			return "failure";
 		}
+	}
 
+	@Bean
+	public JavaMailSender getJavaMailSender() {
+		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+		mailSender.setHost("smtp.gmail.com");
+		mailSender.setPort(587);
+
+		mailSender.setUsername("ngapteam@gmail.com");
+		mailSender.setPassword("unimoni@123");
+
+		Properties props = mailSender.getJavaMailProperties();
+		props.put("mail.transport.protocol", "smtp");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.debug", "true");
+
+		return mailSender;
 	}
 }

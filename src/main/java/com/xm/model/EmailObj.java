@@ -2,16 +2,16 @@ package com.xm.model;
 
 public class EmailObj {
 
-	private String senderName;
+	private String email;
 	private String subject;
 	private String message;
 
-	public String getSenderName() {
-		return senderName;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setSenderName(String senderName) {
-		this.senderName = senderName;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getSubject() {

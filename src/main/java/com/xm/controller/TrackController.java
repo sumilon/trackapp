@@ -65,7 +65,7 @@ public class TrackController {
 	@PostMapping("/sendMail")
 	public String sendMail(@RequestBody EmailObj email) throws MessagingException {
 
-		return service.sendMAil(email);
+		return service.sendEmail(email);
 	}
 
 	@PostMapping("/sendSMS")
