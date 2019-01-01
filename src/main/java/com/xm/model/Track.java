@@ -13,6 +13,7 @@ public class Track {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	private String deviceId;
 	private String longitude;
 	private String latitude;
 	private Date trackDate;
@@ -23,6 +24,14 @@ public class Track {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getDeviceId() {
+		return deviceId;
+	}
+
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
 
 	public String getLongitude() {
