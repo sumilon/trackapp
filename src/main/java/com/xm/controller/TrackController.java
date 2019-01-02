@@ -71,7 +71,7 @@ public class TrackController {
 	@PostMapping("/sendSMS")
 	public String sendSMS(@RequestBody SmsObj sms) {
 
-		return smsService.sendCampaign("S5H06CM84RR9DPW69QAG1R3R8Y6TJH5D", "JSFKQA0D43NET6VZ", "stage", "9776177711",
+		return smsService.sendCampaign("S5H06CM84RR9DPW69QAG1R3R8Y6TJH5D", "JSFKQA0D43NET6VZ", "stage", sms.getPhone(),
 				sms.getMessage(), sms.getPhone());
 	}
 
